@@ -2,44 +2,6 @@ name: Jest tests
 
 on:
   push:
-    branches:
-      - main
-      - next
-    paths:
-      - 'packages/**'
-      - '.github/actions/**'
-      - '.github/workflows/test.yml'
-      - '.yarnrc.yml'
-      - 'yarn.lock'
-      - '.prettier*'
-      - '.eslint*'
-      - 'jest.config.js'
-      - 'tsconfig.json'
-      - 'turbo.json'
-      - 'config'
-      - 'scripts'
-      - 'patches'
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-    paths:
-      - 'packages/**'
-      - '.github/actions/**'
-      - '.github/workflows/test.yml'
-      - '.yarnrc.yml'
-      - 'yarn.lock'
-      - '.prettier*'
-      - '.eslint*'
-      - 'jest.config.js'
-      - 'tsconfig.json'
-      - 'turbo.json'
-      - 'config'
-      - 'scripts'
-      - 'patches'
-
-  workflow_dispatch:
 
 jobs:
   test:
@@ -72,7 +34,12 @@ jobs:
         run: yarn build
 
       - name: 🧪 Unit tests
-        run: yarn test
+      
+        uses: koenhagen/measure-energy-action@v0.33
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: yarn test
+          count: 1
 
   notify-test-failure:
     name: Discord Notification
