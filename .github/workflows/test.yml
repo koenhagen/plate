@@ -39,7 +39,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: yarn test
-          count: 1
+          count: 10
 
   notify-test-failure:
     name: Discord Notification
